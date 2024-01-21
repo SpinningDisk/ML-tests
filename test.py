@@ -1,1 +1,0 @@
-a = open("client.txt", "w").write("eure Problemchen")
