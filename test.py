@@ -3,7 +3,18 @@ from numpy import array as npar
 
 rd = open("data.txt", "r").read().split("\n")
 rs = open("ans.txt", "r").read().split("\n")
+calcs_ls = []
+ans_ls = []
+counter = 0
 for i in rd:
+    calcs_ls.append(i.split("_"))
+    for j in range(2):
+        print(calcs_ls[counter][j-1])
+        calcs_ls[counter][j-1] = int(calcs_ls[counter][j-1])
+    ans_ls.append(int(rs[counter]))
+    counter += 1
+print(calcs_ls)
+print(ans_ls)
 
 exit()
 
