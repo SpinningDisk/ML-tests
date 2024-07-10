@@ -1,15 +1,11 @@
 from keras import Sequential, layers, Input, initializers
 from numpy import array as npar
 
-calcs_ls = [
-    [1, 3],
-    [2, 4],
-]
+rd = open("data.txt", "r").read().split("\n")
+rs = open("ans.txt", "r").read().split("\n")
+for i in rd:
 
-ans_ls = [
-    [4],
-    [6]
-]
+exit()
 
 calcs = npar(calcs_ls)
 ans = npar(ans_ls)
