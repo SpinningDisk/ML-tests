@@ -43,8 +43,8 @@ model = Sequential([
     layers.Dense(input_shape=(28, 28), units=784, kernel_initializer=initializers.RandomNormal(stddev=0.01),),
     layers.Activation('tanh'),
     layers.Flatten(), 
-    layers.Dense(5, kernel_initializer=initializers.RandomNormal(stddev=0.01),),
-    layers.Activation('relu'),
+    #layers.Dense(5, kernel_initializer=initializers.RandomNormal(stddev=0.01),),
+    #layers.Activation('relu'),
     layers.Dense(10, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
     layers.Activation('softmax'),
 ])
@@ -52,7 +52,7 @@ model = Sequential([
 
 model.compile(loss="categorical_crossentropy", optimizer="adamw", metrics=["accuracy"])
 visualkeras.layered_view(model, to_file='model01.png', max_xy=4000, max_z=800)
-model.fit(x_train, y_train, batch_size=128, epochs=50)
+model.fit(x_train, y_train, batch_size=1, epochs=50)
 model.save("model01.keras")
 
 
