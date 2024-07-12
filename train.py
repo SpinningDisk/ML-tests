@@ -3,6 +3,9 @@ import numpy as np
 from keras import Sequential, layers, Input, initializers, optimizers, Initializer
 import visualkeras
 import json
+from models import model01
+
+model = model01
 
 num_classes = 10
 input_shape = (28, 28, 1)
@@ -26,12 +29,7 @@ print(y_train.shape)
 
 model.compile(loss="categorical_crossentropy", optimizer="adamw", metrics=["accuracy"])
 visualkeras.layered_view(model, to_file='model01.png')
-model.fit(x_train, y_train, batch_size=1, epochs=1, validation_data=(x_test, y_test), validation_batch_size=5)
-model.save("model01.keras")
-model.fit(x_train, y_train, batch_size=1, epochs=1, validation_data=(x_test, y_test), validation_batch_size=5)
-model.save("model01.keras")
-model.fit(x_train, y_train, batch_size=1, epochs=1, validation_data=(x_test, y_test), validation_batch_size=5)
-model.save("model01.keras")
+model.fit(x_train, y_train, batch_size=128, epochs=3, validation_data=(x_test, y_test), validation_batch_size=5)
+model.save("models/model01.keras")
 
 model.evaluate(x_test, y_test)
-model.evaluate()

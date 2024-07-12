@@ -8,14 +8,14 @@ import warnings
 
 num_classes = 10
 
-model_name = f'{input("what model?\n>")}.keras'
+model_name = input("what model?\n>")+'.keras'
 try:
-    model = keras.saving.load_model(f"/models/{model_name}")
+    model = keras.saving.load_model(f"models/{model_name}")
 except:
-    warnings.warn(f'no such model found "{model_name}"', stacklevel=3, type=)
+    warnings.warn(f'no such model found "{model_name}"', stacklevel=3)
     exit(1)
 
-req = input("random, user or chosen test\n>>")
+req = input("random, user, eval (evaluation) or chosen test\n>>")
 if req in ["random", "Random"]:
     (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
     x_test = x_test.astype("float32") / 255
@@ -47,6 +47,13 @@ elif req in ["chosen test", "Chosen Test", "Chosen test", "chosen Test"]:
     i = int(input("number of test:\n>>>"))
     img = x_test[i]
     ans = y_test[i]
+elif req in ['eval', 'Eval', 'e', 'E']:
+    (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+    x_test = x_test.astype("float32") / 255
+    x_test = np.expand_dims(x_test, -1)
+    y_test = keras.utils.to_categorical(y_test, num_classes)
+    model.evaluate(x_test, y_test)
+    exit(0)
 
 conf = model.predict(img).tolist()
 try:
@@ -60,7 +67,6 @@ else:
 
 if input("show image?\n>>") in ["yes", "Yes", "y", "Y"]:
     img = img.reshape((28, 28))
-    print(img.shape)
     image = Image.fromarray(img)
     image.resize((28, 28))
     image.save("no.tiff")
