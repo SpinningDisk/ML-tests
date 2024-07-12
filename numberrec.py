@@ -24,36 +24,14 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 print(x_train.shape)
 print(y_train.shape)
 
-model01 = Sequential([
-    Input(shape=(28, 28, 1)),
-    layers.Convolution2D(filters=2, kernel_size=(3, 3), activation=None, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
-    #layers.Dense(input_shape=(26, 26), units=676),
-    layers.Convolution2D(filters=2, kernel_size=(3, 3), activation=None, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
-    layers.Convolution2D(filters=1, kernel_size=(4, 4), activation=None, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
-    layers.MaxPool2D(pool_size=(2, 2), ),
-    keras.layers.Flatten(),
-    layers.Dense(32, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
-    layers.Dense(10, kernel_initializer=initializers.RandomNormal(stddev=0.01), )
-])
-
-model = Sequential([
-    Input(shape=(28, 28, 1)),
-    layers.Convolution2D(filters=2, kernel_size=(3, 3), activation=None, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
-    layers.Dense(input_shape=(28, 28), units=784, kernel_initializer=initializers.RandomNormal(stddev=0.01),),
-    layers.Dense(input_shape=(28, 28), units=784, kernel_initializer=initializers.RandomNormal(stddev=0.01),),
-    layers.Activation('tanh'),
-    layers.Flatten(), 
-    #layers.Dense(5, kernel_initializer=initializers.RandomNormal(stddev=0.01),),
-    #layers.Activation('relu'),
-    layers.Dense(10, kernel_initializer=initializers.RandomNormal(stddev=0.01), ),
-    layers.Activation('softmax'),
-])
-
-
 model.compile(loss="categorical_crossentropy", optimizer="adamw", metrics=["accuracy"])
-visualkeras.layered_view(model, to_file='model01.png', max_xy=4000, max_z=800)
-model.fit(x_train, y_train, batch_size=1, epochs=50)
+visualkeras.layered_view(model, to_file='model01.png')
+model.fit(x_train, y_train, batch_size=1, epochs=1, validation_data=(x_test, y_test), validation_batch_size=5)
+model.save("model01.keras")
+model.fit(x_train, y_train, batch_size=1, epochs=1, validation_data=(x_test, y_test), validation_batch_size=5)
+model.save("model01.keras")
+model.fit(x_train, y_train, batch_size=1, epochs=1, validation_data=(x_test, y_test), validation_batch_size=5)
 model.save("model01.keras")
 
-
-print("finished")
+model.evaluate(x_test, y_test)
+model.evaluate()
