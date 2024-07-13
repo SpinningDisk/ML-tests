@@ -3,9 +3,11 @@ import numpy as np
 from keras import Sequential, layers, Input, initializers, optimizers, Initializer
 import visualkeras
 import json
-from models import model01
+import models
 
-model = model01
+model_numb = "01"
+model = eval(f"models.model{model_numb}")
+model = models.
 
 num_classes = 10
 input_shape = (28, 28, 1)
@@ -28,8 +30,9 @@ print(x_train.shape)
 print(y_train.shape)
 
 model.compile(loss="categorical_crossentropy", optimizer="adamw", metrics=["accuracy"])
-visualkeras.layered_view(model, to_file='model01.png')
+visualkeras.layered_view(model, to_file=f'model_pics/model{model_numb}.png')
 model.fit(x_train, y_train, batch_size=128, epochs=3, validation_data=(x_test, y_test), validation_batch_size=5)
-model.save("models/model01.keras")
+if input("overwrite?\n>>") in ["yes", "Yes", "y", "Y"]:
+    model.save(f"models/model{model_numb}.keras")
 
 model.evaluate(x_test, y_test)
