@@ -5,12 +5,11 @@ import visualkeras
 import json
 import models
 
-model_numb = "01"
-model = eval(f"models.model{model_numb}")
-model = models.
-
-num_classes = 10
-input_shape = (28, 28, 1)
+model_class = input("model class:\n>")
+model_num = input("model numder:\n>>")
+model = eval(f"models.{model_class}.m{model_num}.model{model_num}")
+num_classes = eval(f'models.{model_class}.output_size')
+input_shape = eval(f'models.{model_class}.input_size')
 
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
