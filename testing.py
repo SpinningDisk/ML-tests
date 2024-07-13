@@ -7,7 +7,7 @@ import warnings
 
 
 num_classes = 10
-
+model_class = input("what class?\n>")
 model_name = input("what model?\n>")+'.keras'
 try:
     model = keras.saving.load_model(f"models/{model_name}")

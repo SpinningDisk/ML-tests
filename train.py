@@ -8,30 +8,21 @@ import models
 model_class = input("model class:\n>")
 model_num = input("model numder:\n>>")
 model = eval(f"models.{model_class}.m{model_num}.model{model_num}")
-num_classes = eval(f'models.{model_class}.output_size')
-input_shape = eval(f'models.{model_class}.input_size')
+num_classes = eval(f'models.{model_class}.out_size')
+input_shape = eval(f'models.{model_class}.in_size')
 
-(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
-
-# Scale images to the [0, 1] range
-x_train = x_train.astype("float32") / 255
-x_test = x_test.astype("float32") / 255
-# Make sure images have shape (28, 28, 1)
-x_train = np.expand_dims(x_train, -1)
-x_test = np.expand_dims(x_test, -1)
-
-
-# convert class vectors to binary class matrices
-y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
-
+data = eval(f'models.{model_class}.data_prep()')
+(x_train, y_train), (x_test, y_test) = data
 print(x_train.shape)
-print(y_train.shape)
+
+
+
 
 model.compile(loss="categorical_crossentropy", optimizer="adamw", metrics=["accuracy"])
-visualkeras.layered_view(model, to_file=f'model_pics/model{model_numb}.png')
-model.fit(x_train, y_train, batch_size=128, epochs=3, validation_data=(x_test, y_test), validation_batch_size=5)
+visualkeras.layered_view(model, to_file=f'model_pics/{model_class}-model{model_num}.png')
+model.fit(x_train, y_train, batch_size=eval(f'models.{model_class}.m{model_num}.batch_size'), epochs=eval(f'models.{model_class}.m{model_num}.epochs'), validation_data=(x_test, y_test), validation_batch_size=5)
 if input("overwrite?\n>>") in ["yes", "Yes", "y", "Y"]:
-    model.save(f"models/model{model_numb}.keras")
+    model.save(f"models/{model_class}-model{model_num}.keras")
 
+model.summary()
 model.evaluate(x_test, y_test)
