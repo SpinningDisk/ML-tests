@@ -6,7 +6,7 @@ import json
 import models
 
 model_class = input("model class:\n>")
-model_num = input("model numder:\n>>")
+model_num = input("model number:\n>>")
 model = eval(f"models.{model_class}.m{model_num}.model{model_num}")
 num_classes = eval(f'models.{model_class}.out_size')
 input_shape = eval(f'models.{model_class}.in_size')

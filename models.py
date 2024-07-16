@@ -90,33 +90,27 @@ class img_rec_models10():
     uom = 'RGB'
     def data_prep():
         (x_train, y_train), (x_test, y_test) = datasets.cifar10.load_data()
-        x_test = x_test.reshape((10000, 1, 32, 32, 3))
+        #x_test = x_test.reshape((10000, 1, 32, 32, 3))
         y_train = utils.to_categorical(y_train, 10)
         y_test = utils.to_categorical(y_test, 10)
         return (x_train, y_train), (x_test, y_test)
     class m01():
         model01 = Sequential([
             Input(shape=(32, 32, 3)),
-            layers.SeparableConv2D(filters=32, kernel_size=(3, 3),),
+            layers.SeparableConv2D(filters=32, kernel_size=(3, 3), ),
+            layers.Activation('relu'),
+            layers.SeparableConv2D(filters=32, kernel_size=(3, 3), ),
             layers.Activation('relu'),
             layers.MaxPool2D((2, 2)),
             layers.Dropout(0.2),
-            layers.SeparableConv2D(filters=32, kernel_size=(3, 3),),
+            layers.Conv2D(filters=64, kernel_size=(3, 3), kernel_initializer='random_normal'),
             layers.Activation('relu'),
-            layers.MaxPool2D((2, 2)),
-            layers.SeparableConv2D(filters=16, kernel_size=(2, 2),),
+            layers.Conv2D(filters=64, kernel_size=(3, 3), kernel_initializer='random_normal'),
+            layers.MaxPool2D((2, 2),),
             layers.Activation('relu'),
-            #layers.Reshape((20, 20, 1)),
-            #layers.Conv2D(32, (5, 5), kernel_initializer='random_normal'),
-            #layers.Activation('relu'),
-            #layers.MaxPool2D((2, 2)),
-            #layers.Conv2D(16, (2, 2), kernel_initializer='random_normal'),
-            #layers.Activation('relu'),
+            layers.Dropout(0.2),
             layers.Flatten(),
-            layers.Dropout(0.2),
-            layers.Dense(5, kernel_initializer='random_normal'),
-            layers.Activation('relu'),
-            layers.Dense(16, kernel_initializer='random_normal'),
+            #layers.Dense(16, kernel_initializer='random_normal'),
             layers.Activation('relu'),
             layers.Dense(10, kernel_initializer='random_normal'),
             layers.Activation('softmax')
