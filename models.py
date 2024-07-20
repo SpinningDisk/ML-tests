@@ -117,3 +117,20 @@ class img_rec_models10():
         ])
         epochs = 6
         batch_size = 1
+    class m02():
+        model02 = Sequential([
+            Input(shape=(32, 32, 3)),
+            #layers.Dropout(0.2),
+            layers.SeparableConv2D(filters= 32, kernel_size=(3, 3),),
+            layers.Activation('relu'),
+            layers.MaxPool2D(pool_size=(2,2)),
+            layers.Conv2D(filters=32, kernel_size=(3,3), kernel_initializer='random_normal'),
+            layers.Activation('relu'),
+            layers.MaxPool2D(pool_size=(2,2)),
+            layers.Flatten(),
+            #layers.Dropout(0.15),
+            layers.Dense(10, kernel_initializer='random_normal'),
+            layers.Activation('softmax')
+        ])
+        epochs = 3
+        batch_size = 128

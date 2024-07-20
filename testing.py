@@ -61,7 +61,7 @@ except:
 if conf[0].index(max(conf[0])) == ans.index(max(ans)):
     print(f"network guessed right ({eval(f'models.{model_class}.classes[conf[0].index(max(conf[0]))]')} = {eval(f'models.{model_class}.classes[ans.index(max(ans))]')})")
 else:
-    print(f"network did not guess right :( ({conf[0].index(max(conf[0]))} is not {ans.index(max(ans))})")
+    print(f"network did not guess right :( ({eval(f'models.{model_class}.classes[conf[0].index(max(conf[0]))]')} is not {eval(f'models.{model_class}.classes[ans.index(max(ans))]')})")
 
 if input("show image?\n>>") in ["yes", "Yes", "y", "Y"]:
     #img = img.reshape(size_in)
